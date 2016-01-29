@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Dagger2Example</string>
+    <string name="get">获取储存结果</string>
+    <string name="button2">获取姓名年龄</string>
+    <string name="go">下一页</string>
+    <string name="min">获取小明信息</string>
+    <string name="guan">获取小关信息</string>
+</resources>
