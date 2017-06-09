@@ -1,7 +1,6 @@
 package com.zl.dagger2example.ui;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,63 +10,60 @@ import android.widget.Toast;
 import com.zl.dagger2example.MyApplication;
 import com.zl.dagger2example.R;
 import com.zl.dagger2example.bean.Person;
-import com.zl.dagger2example.di.components.StorageComponent;
+import com.zl.dagger2example.di.components.DaggerMainComponent;
+import com.zl.dagger2example.di.components.MainComponent;
+import com.zl.dagger2example.di.modules.MainModule;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.button1)
+    @BindView(R.id.button1)
     Button mButton1;
-
-    @Bind(R.id.button2)
+    @BindView(R.id.button2)
     Button mButton2;
-
-    @Bind(R.id.button3)
+    @BindView(R.id.button3)
     Button mButton3;
 
-    @Inject
-    SharedPreferences mPreferences;//全局的SharedPreferences
+    private final String KEY = "Dagger 2";
+
+    private MainComponent mComponent;
 
     @Inject
     Person mPerson;
 
-    StorageComponent mStorageComponent;
-    private final String KEY = "Dagger 2";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mStorageComponent = ((MyApplication)this.getApplication()).getStorageComponent();
-        mStorageComponent.inject(this);//注入MainActivity
-        mStorageComponent.execute().storage();//执行储存操作
+        mComponent = DaggerMainComponent.builder()
+                .appComponent(((MyApplication)this.getApplication()).getAppComponent())
+                .mainModule(new MainModule())
+                .build();
 
+        mComponent.inject(this);
     }
 
-    @OnClick({
-            R.id.button1,
-            R.id.button2,
-            R.id.button3
-    })
-    void onButtonClicked(View v) {
+    @OnClick({R.id.button1, R.id.button2, R.id.button3})
+    public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.button1:
-                //Toast.makeText(this,mPreferences.getString(KEY,"---"),Toast.LENGTH_SHORT).show();
-                Toast.makeText(this,mStorageComponent.execute().getStorage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, mComponent.execute().getStorage(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button2:
-                Toast.makeText(this,mPerson.getName() + "----" + mPerson.getAge(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, mPerson.getName() + "----" + mPerson.getAge(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button3:
-                Intent intent = new Intent(this,SecondActivity.class);
+                Intent intent = new Intent(this, SecondActivity.class);
                 startActivity(intent);
                 break;
         }
     }
+
 }

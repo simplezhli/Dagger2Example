@@ -25,7 +25,7 @@ public class Storage {
 
     public void storage() {
         mScheduleImpl.get().start();
-        mPreferences.edit().putString(KEY, "Dagger 2 -- Example").commit();
+        mPreferences.edit().putString(KEY, "Dagger 2 -- Example").apply();
         mScheduleImpl.get().end();
     }
     public String getStorage() {
