@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.SecondActivity"/>
+
+        <activity android:name=".ui.ContributesActivity"/>
     </application>
 
 </manifest>

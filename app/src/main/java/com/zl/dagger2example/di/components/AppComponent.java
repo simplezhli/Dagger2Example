@@ -1,14 +1,15 @@
 package com.zl.dagger2example.di.components;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
+import com.zl.dagger2example.MyApplication;
 import com.zl.dagger2example.di.modules.AppModule;
+import com.zl.dagger2example.di.modules.BuildersModule;
 import com.zl.dagger2example.di.modules.StorageModule;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.android.AndroidInjector;
+import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
  * Created by weilu on 2016/1/27.
@@ -17,10 +18,12 @@ import dagger.Component;
 @Component(modules = {
         AppModule.class,
         StorageModule.class,
+        BuildersModule.class,
+        AndroidSupportInjectionModule.class
 })
-public interface AppComponent {
+interface AppComponent extends AndroidInjector<MyApplication>{
 
-    Context getAppContext();
+    @Component.Builder
+    abstract class Builder extends AndroidInjector.Builder<MyApplication> {}
 
-    SharedPreferences getSharedPreferences();
 }

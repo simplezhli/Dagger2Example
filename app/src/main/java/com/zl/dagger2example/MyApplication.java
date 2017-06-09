@@ -1,31 +1,17 @@
 package com.zl.dagger2example;
 
-import android.app.Application;
-import com.zl.dagger2example.di.components.AppComponent;
 import com.zl.dagger2example.di.components.DaggerAppComponent;
-import com.zl.dagger2example.di.modules.AppModule;
-import com.zl.dagger2example.di.modules.StorageModule;
+
+import dagger.android.AndroidInjector;
+import dagger.android.support.DaggerApplication;
 
 /**
  * Created by weilu on 2016/1/26.
  */
-public class MyApplication extends Application {
-
-    private AppComponent mAppComponent;
+public class MyApplication extends DaggerApplication {
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-
-        mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .storageModule(new StorageModule(this))
-                .build();
-
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerAppComponent.builder().create(this);
     }
-
-    public AppComponent getAppComponent() {
-        return mAppComponent;
-    }
-
 }

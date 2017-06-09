@@ -8,4 +8,4 @@
 
 ##具体说明
 
-Dsgger2使用攻略：<http://blog.csdn.net/qq_17766199/article/details/50606011>
+Dagger2与AndroidInjector：<http://blog.csdn.net/qq_17766199>

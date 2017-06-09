@@ -1,7 +1,8 @@
 package com.zl.dagger2example.di.modules;
 
-import android.app.Application;
 import android.content.Context;
+
+import com.zl.dagger2example.MyApplication;
 
 import javax.inject.Singleton;
 
@@ -14,15 +15,9 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private Application application;
-
-    public AppModule(Application application) {
-        this.application = application;
-    }
-
     @Provides
     @Singleton
-    Context provideContext() {
+    Context provideContext(MyApplication application) {
         return application;
     }
 }

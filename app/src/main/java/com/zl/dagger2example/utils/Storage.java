@@ -18,7 +18,7 @@ public class Storage {
     private final String KEY = "Dagger 2";
 
     @Inject
-    public Storage(SharedPreferences mPreferences ,Lazy<ScheduleImpl> mScheduleImpl) {
+    Storage(SharedPreferences mPreferences ,Lazy<ScheduleImpl> mScheduleImpl) {
         this.mPreferences = mPreferences;
         this.mScheduleImpl = mScheduleImpl;
     }
@@ -28,7 +28,8 @@ public class Storage {
         mPreferences.edit().putString(KEY, "Dagger 2 -- Example").apply();
         mScheduleImpl.get().end();
     }
+
     public String getStorage() {
-        return mPreferences.getString(KEY,"---");
+        return mPreferences.getString(KEY, "---");
     }
 }

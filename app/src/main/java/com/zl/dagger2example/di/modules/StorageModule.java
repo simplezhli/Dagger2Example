@@ -1,8 +1,9 @@
 package com.zl.dagger2example.di.modules;
 
-import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.zl.dagger2example.MyApplication;
 
 import javax.inject.Singleton;
 
@@ -15,15 +16,9 @@ import dagger.Provides;
 @Module
 public class StorageModule {
 
-    private Application application;
-
-    public StorageModule(Application application) {
-        this.application = application;
-    }
-
     @Provides
     @Singleton
-    SharedPreferences provideSharedPreferences(){
+    SharedPreferences provideSharedPreferences(MyApplication application){
         return PreferenceManager.getDefaultSharedPreferences(application);
     }
 

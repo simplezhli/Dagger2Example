@@ -20,6 +20,7 @@ public class UserModule {
         xiaomin.setName("小明");
         return xiaomin;
     }
+
     @Provides
     Login provideXiaoGuanUser() {
         Login xiaoguan = new Login();
